@@ -1,7 +1,7 @@
 const img = document.querySelector('#img')
 const buttons = document.querySelector('#buttons')
 const buttonAutomatic = document.querySelector('#button_automatic')
-
+const buttonStop = document.querySelector('#button_stop')
 function toggleColor (event){
     let colorButton = event.target.id
 
@@ -16,21 +16,17 @@ function toggleColor (event){
     } 
 }
 
-function automaticHandleColor(color){
-    setInterval( () => {
-        return img.src = `assets/${color}.png`
-    }, 1000)
-}
-
 function toggleAutomatic(){
-    let colors = ['red', 'green', 'yellow']
-    
-    if (colors == 0){
-        for (let i = 0; i < colors.length; i++){
-            automaticHandleColor(colors[i])
+    let colors = ['red', 'yellow', 'green']
+    let index = 0
+    const interval =  setInterval( () => { 
+        if (index < colors.length) {
+        img.src = `assets/${colors[index]}.png`
+        return index ++
         }
-    } 
-     
+        img.src = 'assets/off.png'
+        return clearInterval(interval)
+    }, 1000)
 }
 
 buttons.onclick = toggleColor
